@@ -1,38 +1,24 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jul  1 09:53:02 2022
+
+@author: frist
+"""
+
 import streamlit as st
+import plotly_express as px
+import pickle
 
-"""
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
-
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+def main():
+    with open('model.pkl','rb') as file:
+        model = pickle.load(file)
+        
+    st.title('Webpage prediksi bunga iris')
+    
+    sl = st.number_input(label="Masukkan Sepal Length =", min_value=0.0, max_value=8.0, step=0.1, value=5.2)
+    sw = st.number_input(label="Masukkan Sepal Width =", min_value=0.0, max_value=8.0, step=0.1, value=3.2)
+    pl = st.number_input(label="Masukkan Petal Length =", min_value=0.0, max_value=8.0, step=0.1, value=1.2)
+    pw = st.number_input(label="Masukkan Petal Width =", min_value=0.0, max_value=8.0, step=0.1, value=0.2)
+    
+if __name__ == "__main__":
+    main()
