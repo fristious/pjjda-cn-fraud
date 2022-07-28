@@ -8,26 +8,24 @@ Created on Fri Jul  1 09:53:02 2022
 import streamlit as st
 import plotly_express as px
 import joblib
-import os
-
-def file_selector(folder_path='.'):
-    filenames = os.listdir(folder_path)
-    selected_filename = st.selectbox('Select a file', filenames)
-    return os.path.join(folder_path, selected_filename)
 
 def main():
     with open('model.pkl','rb') as file:
         model = joblib.load(file)
         
-    st.title('Webpage prediksi bunga iris')
-    
-    filename = file_selector()
-    st.write('You selected `%s`' % filename)
-    
-    sl = st.number_input(label="Masukkan Sepal Length =", min_value=0.0, max_value=8.0, step=0.1, value=5.2)
-    sw = st.number_input(label="Masukkan Sepal Width =", min_value=0.0, max_value=8.0, step=0.1, value=3.2)
-    pl = st.number_input(label="Masukkan Petal Length =", min_value=0.0, max_value=8.0, step=0.1, value=1.2)
-    pw = st.number_input(label="Masukkan Petal Width =", min_value=0.0, max_value=8.0, step=0.1, value=0.2)
+    st.title('Prediksi Kesalahan HS Code pada Pemberitahuan CN')
+    st.subheader('Silahkan pilih file XML yang akan diuji (.xml/.txt)')
+    fl = st.file_uploader('Upload a file')
+    st.subheader('Atau masukan variable secara manual')
+    sid = st.text_input("NPWP PJT")
+    gd = st.text_input("Kode gudang")
+    ng = st.text_input("Kode negara")
+    jb = st.number_input("Jumlah barang", 0, 100)
+    jid = st.selectbox('Pilih jenis ID', ['0', '1','2','3','4','5','9'])
+    nid = st.text_input("Nomor ID")
+    cif = st.number_input("CIF barang")
+    net = st.number_input("Netto barang")
+    np = st.text_input("Nama pengirim")
     
 if __name__ == "__main__":
     main()
