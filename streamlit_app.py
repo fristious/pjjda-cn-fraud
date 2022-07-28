@@ -7,7 +7,7 @@ Created on Fri Jul  1 09:53:02 2022
 
 import streamlit as st
 import plotly_express as px
-import pickle
+import joblib
 import os
 
 def file_selector(folder_path='.'):
@@ -17,7 +17,7 @@ def file_selector(folder_path='.'):
 
 def main():
     with open('model.pkl','rb') as file:
-        model = pickle.load(file)
+        model = joblib.load(file)
         
     st.title('Webpage prediksi bunga iris')
     
